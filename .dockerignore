@@ -1,3 +1,7 @@
+# The purpose of a .dockerignore file is to specify files and directories that should be excluded from the Docker
+# build context. When you build a Docker image, Docker sends the entire context directory (by default, the current
+# directory) to the Docker daemon. This can be inefficient if the context contains a lot of files that are not
+# needed in the Docker image.
 **/*.log
 **/*.md
 **/*.php~
