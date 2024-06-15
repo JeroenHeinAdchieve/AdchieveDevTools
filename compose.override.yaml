@@ -26,5 +26,8 @@ services:
 ###> doctrine/doctrine-bundle ###
   database:
     ports:
-      - "5432"
+      - "3309:3306"
+#      - target: 3306
+#        published: ${MYSQL_PORT:-3306}
+#        protocol: tcp
 ###< doctrine/doctrine-bundle ###
