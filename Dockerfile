@@ -42,6 +42,13 @@ RUN install-php-extensions pdo_mysql
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
+# Install node.js
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash &&  \
+    export NVM_DIR="/config/nvm" &&  \
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  &&  \
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && \
+	nvm install 22
+
 COPY --link frankenphp/conf.d/app.ini $PHP_INI_DIR/conf.d/
 COPY --link --chmod=755 frankenphp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 COPY --link frankenphp/Caddyfile /etc/caddy/Caddyfile
@@ -62,6 +69,9 @@ RUN set -eux; \
 	install-php-extensions \
 		xdebug \
 	;
+
+# Install symfony cli
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash -x && apt install symfony-cli
 
 COPY --link frankenphp/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
